@@ -206,7 +206,7 @@ num_hidden              = 0
 
 # The number of input nodes, through which the 
 # network receives inputs.
-num_inputs              = 13
+num_inputs              = 20
 
 # The number of output nodes, to which the network 
 # delivers outputs.
