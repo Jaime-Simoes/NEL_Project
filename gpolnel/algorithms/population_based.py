@@ -233,6 +233,7 @@ class PopulationBased(RandomSearch):
                     avgfit, stdfit = -1.0, -1.0
                 print(line_format.format(it, "|", length, self.best_sol.fit.tolist(), self.best_sol.test_fit.tolist(), timing, "|",
                                          avgfit, stdfit))
+                
             else:
                 if len(self.best_sol.fit.shape) == 0:
                     line_format = '{:<10d} {:<1} {:<8d} {:<16g} {:>10.3f} {:<1} {:<16g} {:>16g}'

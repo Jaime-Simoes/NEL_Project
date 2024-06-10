@@ -209,8 +209,10 @@ class GeneticAlgorithm(PopulationBased):
         """
         # Initialization time
         start = time.time()
+        print(log_path,1)
         # Set log path
         if log > 0:
+            print(log_path,2)
             logging.basicConfig(filename=log_path, filemode='w', level=logging.INFO)
 
         # 1)
@@ -262,6 +264,7 @@ class GeneticAlgorithm(PopulationBased):
                 if not self.reproduction:  # performs GP-like variation
                     if random.uniform(0, 1) < self.p_c:
                         # 2) 3) 3)
+                       
                         offs1, offs2 = self.crossover(self.pop[p1_idx], self.pop[p2_idx])
                     else:
                         # 2) 3) 4)
@@ -603,6 +606,7 @@ class GSGP(GeneticAlgorithm):
         """
         # Optionally, tracks initialization's timing for console's output
         start = time.time()
+        print(log_path,3)
         # Set log path
         if log > 0:
             logging.basicConfig(filename=log_path, filemode='w', level=logging.INFO)
@@ -810,6 +814,7 @@ class GSGP(GeneticAlgorithm):
                     avgfit, stdfit = -1.0, -1.0
                 print(line_format.format(it, "|", depth, self.best_sol.fit.tolist(), self.best_sol.test_fit.tolist(), timing, "|",
                                          avgfit, stdfit))
+                
             else:
                 if len(self.best_sol.fit.shape) == 0:
                     line_format = '{:<10d} {:<1} {:<8d} {:<16g} {:>10.3f} {:<1} {:<16g} {:>16g}'

@@ -198,10 +198,8 @@ def prm_gs_xo(initializer, device):
         """
         rt = [lf1] + initializer()
         # Performs GSC on trees and returns the result
-        #
-        # Write here the GSXO operation
-        #
-        return None
+        return [add2, mul2] + rt + p1 + [mul2, sub2, c1] + rt + p2, \
+               [add2, mul2] + rt + p2 + [mul2, sub2, c1] + rt + p1
 
     return gs_xo
 
@@ -250,10 +248,8 @@ def prm_gs_mtn(initializer, ms):
             output is bounded in [-ms, ms].
         """
         ms_ = ms if len(ms) == 1 else ms[random.randint(0, len(ms) - 1)]
-        #
-        # Write here the GSM operation
-        #
-        return None
+        return [add2] + repr_ + [mul2, ms_, tanh1] + initializer()
+
 
     return gs_mtn
 
@@ -317,12 +313,12 @@ def prm_efficient_gs_xo(X, initializer):
             Random tree generated to perform the GSC.
         """
         # Creates a random tree (bounded in [0, 1])
+        # Creates a random tree (bounded in [0, 1])
         rt = [lf1] + initializer()
+        # Executes the tree to obtain random tree's semantics on X
+        rt_s = _execute_tree(rt, X)
         # Performs GSC on semantics and returns parent's semantics and the random tree
-        #
-        # Write here the Efficient GSXO operation
-        #
-        return None
+        return rt_s * p1 + (c1 - rt_s) * p2, rt_s * p2 + (c1 - rt_s) * p1, rt
 
     return efficient_gs_xo
 
@@ -379,15 +375,14 @@ def prm_efficient_gs_mtn(X, initializer, ms):
         torch.Tensor
             The GSM's mutation step used to create the offspring.
         """
+        
         # Chooses the mutation step
         ms_ = ms if len(ms) == 1 else ms[random.randint(0, len(ms) - 1)]
         # Creates a random tree bounded in [-1, 1]
         rt = [tanh1] + initializer()
+     
         # Performs GSM and returns the semantics, the random tree and the mutation's step
-        #
-        # Write here the Efficient Mutation operation
-        #
-        return None
+        return repr_ + ms_ * _execute_tree(rt, X), rt, ms_
 
     return efficient_gs_mtn
 
